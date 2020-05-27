@@ -97,6 +97,7 @@ static int _signal_batch_script_step(const resource_allocation_response_msg_t
 	memset(&rpc, 0, sizeof(rpc));
 	rpc.job_id = allocation->job_id;
 	rpc.job_step_id = SLURM_BATCH_SCRIPT;
+	rpc.step_het_comp = NO_VAL;
 	rpc.signal = signal;
 	rpc.flags = KILL_JOB_BATCH;
 
@@ -130,6 +131,7 @@ static int _signal_job_step(const job_step_info_t *step,
 	memset(&rpc, 0, sizeof(rpc));
 	rpc.job_id = step->job_id;
 	rpc.job_step_id = step->step_id;
+	rpc.step_het_comp = step->step_het_comp;
 	rpc.signal = signal;
 
 	rc = _local_send_recv_rc_msgs(allocation->node_list,
